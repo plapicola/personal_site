@@ -1,7 +1,9 @@
+require 'rake'
 require 'rake/testtask'
 
-task default: :test
-
 Rake::TestTask.new do |task|
-  task.pattern = './test/**/*_test.rb'
+  task.libs << 'test'
+  task.test_files = FileList['test/**/*_test.rb']
 end
+
+task default: :test
