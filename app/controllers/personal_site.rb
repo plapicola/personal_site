@@ -6,6 +6,7 @@ class PersonalSite
     case env["PATH_INFO"]
     when '/' then index
     when '/about' then about
+    when '/main.css' then css
     else
       error
     end
@@ -23,8 +24,16 @@ class PersonalSite
     render_view("about.html")
   end
 
+  def self.css
+    render_static("main.css")
+  end
+
   def self.render_view(file, code = '200')
     [code, {"Content-type" => "text/html"}, [File.read("./app/views/#{file}")]]
+  end
+
+  def self.render_static(asset, code = '200')
+    [code, {"Content-type" => "text/css"}, [File.read("./public/#{asset}")]]
   end
 
 end
